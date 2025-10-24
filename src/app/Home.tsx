@@ -136,33 +136,6 @@ export default function Home() {
           Continue
         </Button>
       </motion.div>
-
-      {/* ✅ Show login/signup links if not logged in */}
-      {!user && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="mt-6 text-sm"
-        >
-          <p className="text-muted-foreground">
-            Don't have an account?{" "}
-            <a
-              href="/signup"
-              className="text-primary hover:underline font-semibold"
-            >
-              Sign up
-            </a>
-            {" or "}
-            <a
-              href="/login"
-              className="text-primary hover:underline font-semibold"
-            >
-              Login
-            </a>
-          </p>
-        </motion.div>
-      )}
     </div>
   );
 }
