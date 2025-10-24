@@ -5,18 +5,27 @@ export async function apiFetch<T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> {
+  const token = localStorage.getItem("token");
+
+  const headers = {
+    "Content-Type": "application/json",
+    ...(token && { Authorization: `Bearer ${token}` }),
+    ...options.headers,
+  };
+
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-    headers: {
-      "Content-Type": "application/json",
-      ...(options.headers || {}),
-    },
-    credentials: "include",
     ...options,
+    headers,
   });
 
   if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw new Error(error.message || "API request failed");
+    const errorData = await response.json().catch(() => ({}));
+
+    if (response.status === 401) {
+      localStorage.removeItem("token");
+    }
+
+    throw new Error(errorData.message || "Something went wrong");
   }
 
   return response.json();

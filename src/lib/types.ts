@@ -36,12 +36,14 @@ export interface Doctor {
   appointments?: (string | Appointment)[];
   createdAt?: string;
   updatedAt?: string;
+  error: string | null;
 }
 
 export interface User {
   _id: string;
   name: string;
   email: string;
+  role: "user" | "doctor";
   password?: string;
   age?: number;
   height?: number;
@@ -69,3 +71,15 @@ export interface UseUsersReturn {
   updateUser: (id: string, data: Partial<User>) => Promise<User | void>;
   deleteUser: (id: string) => Promise<void>;
 }
+export type AuthContextType = {
+  user: User | null;
+  loading: boolean;
+  signin: (email: string, password: string) => Promise<void>;
+  signup: (
+    name: string,
+    email: string,
+    password: string,
+    role?: "user" | "doctor"
+  ) => Promise<void>;
+  logout: () => void;
+};

@@ -1,12 +1,14 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useUsers } from "@/hooks/useUsers";
+import { useAuth } from "@/hooks/useAuth";
 import UserForm from "@/components/users/UserForm";
 import type { User } from "@/lib/types";
 
 export default function EditUserPage() {
   const { id } = useParams();
   const { getUserById, updateUser, error } = useUsers();
+  const { user: currentUser } = useAuth();
   const navigate = useNavigate();
 
   const [userData, setUserData] = useState<Partial<User> | null>(null);
@@ -17,6 +19,13 @@ export default function EditUserPage() {
     async function fetchUser() {
       if (!id) return;
 
+      // ✅ Check if user is trying to edit their own profile
+      if (id !== currentUser?._id) {
+        alert("You can only edit your own profile");
+        navigate("/users");
+        return;
+      }
+
       setIsFetching(true);
       const user = await getUserById(id);
       setUserData(user);
@@ -24,7 +33,7 @@ export default function EditUserPage() {
     }
 
     fetchUser();
-  }, [id, getUserById]);
+  }, [id, getUserById, currentUser, navigate]);
 
   const handleUpdate = async (data: Partial<User>) => {
     if (!id) return;
@@ -45,6 +54,12 @@ export default function EditUserPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
+      <div className="mb-6">
+        <h1 className="text-2xl font-semibold text-primary">
+          Edit Your Profile
+        </h1>
+      </div>
+
       <UserForm
         onSubmit={handleUpdate}
         onCancel={() => navigate("/users")}

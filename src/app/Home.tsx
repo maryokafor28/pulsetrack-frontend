@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { User, Stethoscope, CalendarDays, Activity } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 import type { HomeOption } from "@/lib/types";
 
 const options: HomeOption[] = [
@@ -31,12 +32,30 @@ const options: HomeOption[] = [
 export default function Home() {
   const [selected, setSelected] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { user, loading } = useAuth();
 
   const handleContinue = () => {
     const chosen = options.find((opt) => opt.id === selected);
-    if (chosen) navigate(chosen.path);
+    if (chosen) {
+      // ✅ Check if user is logged in before navigating to protected routes
+      if (!user) {
+        navigate("/login");
+      } else {
+        navigate(chosen.path);
+      }
+    }
   };
 
+  // ✅ Show loading state while checking authentication
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-lg">Loading...</p>
+      </div>
+    );
+  }
+
+  // ✅ Allow access to home page regardless of auth status
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-background text-center">
       <motion.div
@@ -51,6 +70,14 @@ export default function Home() {
         <p className="text-muted-foreground mb-10">
           Monitor your health, track your progress, and stay connected.
         </p>
+
+        {/* ✅ Show auth status */}
+        {user && (
+          <p className="text-sm text-muted-foreground mb-4">
+            Logged in as: <span className="font-semibold">{user.name}</span> (
+            {user.role === "user" ? "Patient" : "Doctor"})
+          </p>
+        )}
       </motion.div>
 
       {/* Animated cards */}
@@ -109,6 +136,33 @@ export default function Home() {
           Continue
         </Button>
       </motion.div>
+
+      {/* ✅ Show login/signup links if not logged in */}
+      {!user && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="mt-6 text-sm"
+        >
+          <p className="text-muted-foreground">
+            Don't have an account?{" "}
+            <a
+              href="/signup"
+              className="text-primary hover:underline font-semibold"
+            >
+              Sign up
+            </a>
+            {" or "}
+            <a
+              href="/login"
+              className="text-primary hover:underline font-semibold"
+            >
+              Login
+            </a>
+          </p>
+        </motion.div>
+      )}
     </div>
   );
 }
