@@ -26,11 +26,6 @@ export default function DoctorsPage() {
         <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-2xl font-semibold text-primary">Doctors</h1>
-            {isDoctor && (
-              <p className="text-sm text-muted-foreground mt-1">
-                Your profile is highlighted below ⭐
-              </p>
-            )}
           </div>
         </div>
 

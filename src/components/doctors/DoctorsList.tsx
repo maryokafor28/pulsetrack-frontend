@@ -95,7 +95,7 @@ export default function DoctorsList({ doctors, currentUserEmail }: Props) {
                     <Button
                       size="sm"
                       onClick={() =>
-                        navigate(`/appointments/book/${doctor._id}`)
+                        navigate(`/appointments/create/${doctor._id}`)
                       }
                     >
                       <Calendar className="w-4 h-4 mr-1" />

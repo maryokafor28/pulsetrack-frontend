@@ -1,15 +1,15 @@
 import { useParams } from "react-router-dom";
 import AppointmentForm from "@/components/appointments/AppointmentForm";
 
-export default function CreateAppointmentPage() {
-  const { doctorId } = useParams<{ doctorId: string }>();
+export default function EditAppointmentPage() {
+  const { appointmentId } = useParams<{ appointmentId: string }>();
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
       <h1 className="text-2xl font-semibold mb-4 text-center">
-        Book Appointment
+        Edit Appointment
       </h1>
-      <AppointmentForm doctorId={doctorId ?? ""} />
+      <AppointmentForm appointmentId={appointmentId} mode="edit" />
     </div>
   );
 }
