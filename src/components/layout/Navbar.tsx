@@ -24,7 +24,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-primary/10 text-primary shadow-md sticky top-0 z-50">
+    <nav className="bg-primary/50 text-primary shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo / Brand */}
         <h1 className="text-xl font-semibold">MyApp</h1>

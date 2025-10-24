@@ -7,7 +7,6 @@ import ProtectedRoute from "@/app/protectedRoute";
 import UsersPage from "@/app/users/UsersPage";
 import EditUserPage from "@/app/users/EditUserPage";
 import DoctorsPage from "@/app/doctors/DoctorsPage";
-import CreateDoctorPage from "@/app/doctors/CreateDoctorsPage";
 import EditDoctorPage from "@/app/doctors/EditDoctorPage";
 import AppointmentsPage from "@/app/appointments/AppointmentsPage";
 import ActivitiesPage from "@/app/activities/ActivitiesPage";
@@ -36,7 +35,6 @@ function App() {
 
             {/* Doctor pages */}
             <Route path="/doctors" element={<DoctorsPage />} />
-            <Route path="/doctors/create" element={<CreateDoctorPage />} />
             <Route path="/doctors/edit/:id" element={<EditDoctorPage />} />
 
             {/* Other protected features */}
