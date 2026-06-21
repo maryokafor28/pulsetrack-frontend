@@ -6,7 +6,7 @@ A modern healthcare management system frontend built with React, TypeScript, Vit
 
 **Production URL**: [https://pulsetrack-frontend-drab.vercel.app](https://pulsetrack-frontend-drab.vercel.app)
 
-**Backend API**: [https://pulsetrack-backend-4pc4.onrender.com/api](https://pulsetrack-backend-4pc4.onrender.com/api)
+**Backend API**: [https://pulsetrack-backend-4pc4.onrender.com/api](https://pulsetrack-backend-4pc4.onrender.com)
 
 ## Tech Stack
 
